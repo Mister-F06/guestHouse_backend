@@ -227,7 +227,7 @@ table, td { color: #000000; } #u_body a { color: #e67e23; text-decoration: under
       <td style="overflow-wrap:break-word;word-break:break-word;padding:15px 10px 40px;font-family:'Lato',sans-serif;" align="left">
         
   <!--[if mso]><table width="100%"><tr><td><![endif]-->
-    <h1 style="margin: 0px; line-height: 140%; text-align: center; word-wrap: break-word; font-family: 'Open Sans',sans-serif; font-size: 28px; font-weight: 400;"><strong>Employment verification request</strong></h1>
+    {{-- <h1 style="margin: 0px; line-height: 140%; text-align: center; word-wrap: break-word; font-family: 'Open Sans',sans-serif; font-size: 28px; font-weight: 400;"><strong>Employment verification request</strong></h1> --}}
   <!--[if mso]></td></tr></table><![endif]-->
 
       </td>

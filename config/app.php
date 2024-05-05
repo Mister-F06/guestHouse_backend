@@ -15,6 +15,18 @@ return [
 
     'name' => env('APP_NAME', 'GuestHouse'),
 
+     /*
+    |--------------------------------------------------------------------------
+    | Front application url
+    |--------------------------------------------------------------------------
+    |
+    | This value is the front url of your application, which will be used when the
+    | framework needs to generate the url in a notification or
+    | other UI elements where an application name needs to be displayed.
+    |
+    */
+    'front_url' => env('APP_FRONT_URL' , 'http://localhos:8080'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
