@@ -12,7 +12,7 @@
         "/auth/login": {
             "post": {
                 "tags": [
-                    "Auth > Login"
+                    "Auth"
                 ],
                 "summary": "Authenticate user",
                 "description": "Authenticate user and generate JWT token",

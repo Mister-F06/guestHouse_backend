@@ -105,7 +105,8 @@ class LoginController extends Controller
 
                 } else 
                     return response()->json(['message' => 'bad credentials'] , 401);
-            }
+            } else 
+                return response()->json(['error' => 'please validated your email before to log in'] , 401);
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['error' => $th->getMessage()]);

@@ -27,7 +27,8 @@ class RegisterRequest extends FormRequest
             'lastname'  => 'required|string',
             'email'     => 'required|email|'. Rule::unique('users' , 'email'),
             'telephone' => 'required|string|'. Rule::unique('users' , 'telephone'),
-            'password'  => ['required','string' , 'min:8' , 'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&*()_+[\]{}|;:,.<>?])[A-Za-z\d@#$%^&*()_+[\]{}|;:,.<>?]{8,}$/' , 'confirmed']
+            'password'  => ['required','string' , 'min:8' , 'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&*()_+[\]{}|;:,.<>?])[A-Za-z\d@#$%^&*()_+[\]{}|;:,.<>?]{8,}$/' , 'confirmed'],
+            'accept_terms' => 'required|boolean'
         ];
     }
 }
