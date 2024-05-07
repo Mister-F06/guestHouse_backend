@@ -183,7 +183,7 @@ class RegisterController extends Controller
     public function verifyEmail(Request $request)
     {
         if (!$request->hasValidSignature()) 
-            return response()->json(['message' => 'invalid signature'], 401);
+            abort(401 , 'invalid signature');
             
         $token = $request->get('token');
 
@@ -196,7 +196,7 @@ class RegisterController extends Controller
 
             DB::beginTransaction();
 
-            $user = User::where('email' , $request->email)->first();
+            $user = User::where('email' , $verified_email->email)->first();
                 
             if(!$user)
                 return response()->json(['message' => "email doesn't exist"] , 404);
@@ -268,8 +268,7 @@ class RegisterController extends Controller
     public function resentLink(Request $request)
     {
         $data = $request->validate([
-            'token' => 'required|string|exists:email_verifieds,token',
-            'email'  => 'required|string|exists:users,email'
+            'token' => 'required|string|exists:email_verifieds,token'
         ]);
 
         try {
@@ -277,9 +276,9 @@ class RegisterController extends Controller
 
             $email_verified = EmailVerified::where('token' , $data['token'])->first();
 
-            $user = User::where('email' , $data['email'])->first();
+            $user = User::where('email' , $email_verified->email)->first();
 
-            $token_data  = generateSignedRoute($data['email']);
+            $token_data  = generateSignedRoute($user->email);
 
             $token_data['email_data']['url'] = updateSignedLink($token_data['email_data']['url'] , route('email.verify') , 'verify/email');
 
@@ -299,7 +298,7 @@ class RegisterController extends Controller
                 'button_url'    => $token_data['email_data']['url']
             ];
 
-            Mail::to($data['email'])->send(new EmailVerify($email_data));
+            Mail::to($user->email)->send(new EmailVerify($email_data));
 
             DB::commit();
 

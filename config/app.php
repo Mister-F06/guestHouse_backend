@@ -25,7 +25,7 @@ return [
     | other UI elements where an application name needs to be displayed.
     |
     */
-    'front_url' => env('APP_FRONT_URL' , 'http://localhos:8080'),
+    'front_url' => env('APP_FRONT_URL' , 'http://localhos:8080/'),
 
     /*
     |--------------------------------------------------------------------------

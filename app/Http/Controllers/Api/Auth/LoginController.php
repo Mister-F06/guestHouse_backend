@@ -345,7 +345,7 @@ class LoginController extends Controller
     public function verifySignature(Request $request)
     {
         if (!$request->hasValidSignature()) 
-            return response()->json(['message' => 'invalid signature'], 401);
+            abort(401, 'invalid signature');
 
             try {
 
