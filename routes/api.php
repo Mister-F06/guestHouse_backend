@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,7 @@ Route::prefix('auth')->group(function() {
 
 Route::middleware('auth:sanctum')->group(function(){
 
+    Route::prefix('users')->controller(UserController::class)->group(function() {
+        Route::get('me' , 'me');
+    });
 });

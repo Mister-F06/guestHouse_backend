@@ -16,6 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->api(append: [
             JsonMiddleware::class
         ]);
+        $middleware->priority([
+            JsonMiddleware::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

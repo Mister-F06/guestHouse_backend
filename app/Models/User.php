@@ -43,4 +43,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /***
+     * Define relationship
+     */
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }

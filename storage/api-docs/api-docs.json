@@ -786,6 +786,84 @@
                     }
                 }
             }
+        },
+        "/me": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get connected user information",
+                "description": "Returns information about the connected user",
+                "operationId": "me",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "firstname": {
+                                            "type": "string",
+                                            "example": "Admin"
+                                        },
+                                        "lastname": {
+                                            "type": "string",
+                                            "example": "GuestHouse"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "format": "email",
+                                            "example": "admin@mail.com"
+                                        },
+                                        "telephone": {
+                                            "type": "string",
+                                            "example": "44444444"
+                                        },
+                                        "is_enabled": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "role_id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "role": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "admin"
+                                                },
+                                                "label": {
+                                                    "type": "string",
+                                                    "example": "Administrateur"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     }
 }
