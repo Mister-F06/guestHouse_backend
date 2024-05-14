@@ -114,11 +114,11 @@ class RegisterController extends Controller
 
             DB::commit();
 
-            return response()->json(['message' => 'user registered']);
+            return $this->sendSuccessResponse(['message' => 'user registered']);
 
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['error' => $th->getMessage()]);
+            return $this->sendServerError($th->getMessage());
         }
     }
 
@@ -207,10 +207,10 @@ class RegisterController extends Controller
 
             DB::commit();
 
-            return response()->json(['message' => 'email verified'], 200);
+            return $this->sendSuccessResponse(['message' => 'email verified']);
         } catch (\Throwable $th) {
             DB::rollBack();
-            throw $th;
+            return $this->sendServerError($th->getMessage());
         }
     }
 
@@ -272,6 +272,7 @@ class RegisterController extends Controller
         ]);
 
         try {
+            
             DB::beginTransaction();
 
             $email_verified = EmailVerified::where('token' , $data['token'])->first();
@@ -302,11 +303,11 @@ class RegisterController extends Controller
 
             DB::commit();
 
-            return response()->json(['message' => 'link verification sent']);
+            return $this->sendSuccessResponse(['message' => 'link verification sent']);
 
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['error' => $th->getMessage()]);
+            return $this->sendServerError($th->getMessage());
         }
     }
 

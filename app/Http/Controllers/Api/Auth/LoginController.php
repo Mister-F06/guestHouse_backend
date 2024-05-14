@@ -101,15 +101,16 @@ class LoginController extends Controller
                         'user'  => $user 
                     ];
 
-                    return response()->json(['message' => $data]);
+                    return $this->sendSuccessResponse($data);
 
                 } else 
-                    return response()->json(['message' => 'bad credentials'] , 401);
+                    return $this->sendAccessError('bad credentials');
             } else 
-                return response()->json(['error' => 'please validated your email before to log in'] , 401);
+                return $this->sendAccessError('please validated your email before to login');
+
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['error' => $th->getMessage()]);
+            return $this->sendServerError($th->getMessage());
         }
     }
 
@@ -191,11 +192,11 @@ class LoginController extends Controller
 
             DB::commit();
 
-            return response()->json(['message' => 'password link sended']);
+            return $this->sendSuccessResponse(['message' => 'password link sended']);
 
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['error' => $th->getMessage()]);
+            return $this->sendServerError($th->getMessage());
         }
     }
 
@@ -356,7 +357,7 @@ class LoginController extends Controller
                     ->first();
                     
                if(!$reset_password)
-                   return response()->json(['message' => 'token not found'] , 404);
+                   return $this->sendNotFound('token not found');
                    
               $email = $reset_password->email ;
               
@@ -366,10 +367,11 @@ class LoginController extends Controller
     
                 DB::commit();
     
-                return response()->json(['message' => "Valid signature" , 'email' => $email ]);
+                return $this->sendSuccessResponse(['message' => "Valid signature" , 'email' => $email ]);
+
             } catch (\Throwable $th) {
                 DB::rollBack();
-                return response()->json(['error' => $th->getMessage()]);
+                return $this->sendServerError($th->getMessage());
             }
     }
 
@@ -459,11 +461,11 @@ class LoginController extends Controller
 
             DB::commit();
 
-            return response()->json(['message' => 'password link sended']);
+            return $this->sendSuccessResponse(['message' => 'password link sended']);
 
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['error' => $th->getMessage()]);
+            return $this->sendServerError($th->getMessage());
         }
     }
 }

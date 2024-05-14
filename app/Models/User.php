@@ -46,10 +46,14 @@ class User extends Authenticatable
 
     /***
      * Define relationship
-     */
-
+    */
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function guest_houses()
+    {
+        return $this->hasMany(GuestHouse::class);
     }
 }

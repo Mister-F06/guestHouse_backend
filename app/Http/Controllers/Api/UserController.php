@@ -52,8 +52,8 @@ class UserController extends Controller
     public function me(Request $request)
     {
         $user = $request->user();
-         $user->role = $user->role->name;
-        return $user;
+        $user->role = $user->role->name;
+        return $this->sendSuccessResponse($user);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\GuestHouseController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,5 +32,16 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::prefix('users')->controller(UserController::class)->group(function() {
         Route::get('me' , 'me');
+    });
+
+    Route::prefix('guest_house')->controller(GuestHouseController::class)->group(function() {
+
+        Route::middleware('role:admin')->group(function(){
+            Route::get('list' , 'index');
+        });
+
+        Route::middleware('role:manager')->group(function() {
+            Route::post('' , 'store');
+        });
     });
 });

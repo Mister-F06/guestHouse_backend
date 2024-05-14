@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CheckUserAbility;
 use App\Http\Middleware\JsonMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -13,11 +14,17 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+
         $middleware->api(append: [
             JsonMiddleware::class
         ]);
+
         $middleware->priority([
             JsonMiddleware::class
+        ]);
+
+        $middleware->alias([
+            'role' => CheckUserAbility::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

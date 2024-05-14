@@ -18,11 +18,12 @@ return new class extends Migration
             $table->longText('description');
             $table->integer('price');
             $table->string('address');
-            $table->string('map_link');
+            $table->string('map_link')->nullable();
             $table->integer('bedrooms_nbr');
             $table->integer('beds_nbr');
             $table->integer('toilets_nbr');
             $table->integer('bathrooms_nbr');
+            $table->boolean('has_kitchen')->default(false);
             $table->boolean('has_pool')->default(false);
             $table->boolean('has_air_conditionner')->default(false);
             $table->boolean('has_jacuzzi')->default(false);

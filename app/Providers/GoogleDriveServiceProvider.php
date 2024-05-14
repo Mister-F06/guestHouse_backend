@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use Google\Service\Drive\Drive;
+use Google\Service\Drive;
 use Google_Client;
 use Illuminate\Filesystem\Filesystem as FilesystemFilesystem;
 use Illuminate\Filesystem\FilesystemAdapter;
