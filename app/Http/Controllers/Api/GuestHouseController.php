@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Api\GuestHouse\StoreRequest;
+use App\Http\Requests\Api\GuestHouse\UpdateRequest;
 use App\Managers\StoreFile;
 
 class GuestHouseController extends Controller
@@ -80,9 +81,15 @@ class GuestHouseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, GuestHouse $guestHouse)
+    public function update(UpdateRequest $request, GuestHouse $guestHouse)
     {
-        //
+        $data = $request->validated();
+
+        try {
+            //code...
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**
