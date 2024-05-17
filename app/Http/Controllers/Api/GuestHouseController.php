@@ -19,16 +19,27 @@ class GuestHouseController extends Controller
      */
     public function index()
     {
+       try {
         $guest_houses = GuestHouse::all();
-
+        return $this->sendSuccessResponse($guest_houses);
+       } catch (\Throwable $th) {
+            return $this->sendServerError($th->getMessage());
+       }
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource for specific user.
      */
-    public function create()
+    public function indexManager()
     {
-        //
+        try {
+            $user = Auth::guard('sanctum')->user();
+            $guest_houses = GuestHouse::where('user_id' , $user->id)
+                                        ->get();
+            return $this->sendSuccessResponse($guest_houses);
+        } catch (\Throwable $th) {
+            return $this->sendServerError($th->getMessage());
+        }
     }
 
     /**
@@ -67,16 +78,9 @@ class GuestHouseController extends Controller
      */
     public function show(GuestHouse $guestHouse)
     {
-        //
+        return $guestHouse;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(GuestHouse $guestHouse)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -84,11 +88,54 @@ class GuestHouseController extends Controller
     public function update(UpdateRequest $request, GuestHouse $guestHouse)
     {
         $data = $request->validated();
-
+        
         try {
-            //code...
+            
+            DB::beginTransaction();
+
+            $guestHouse->update($data);
+
+            if ($request->hasFile('cover')) {
+
+                $media = $guestHouse->getFirstMedia('Cover');
+
+                if($media)
+                    $media->delete();
+
+                StoreFile::addFile($data['cover'], 'Cover' , $guestHouse);
+            }
+
+            if($request->hasFile('pictures')){
+
+                foreach ($guestHouse->getMedia('Pictures') as $key => $media) {
+                    
+                    $media->delete();
+                }
+
+                foreach ($data['pictures'] as $key => $media) 
+                    StoreFile::addFile($media , 'Pictures' , $guestHouse);
+                
+            }
+
+            if ($request->hasFile('videos')) {
+                foreach ($guestHouse->getMedia('Videos') as $key => $media) {
+                    $media->delete();
+                }
+
+                foreach ($data['videos'] as $key => $video) 
+                   StoreFile::addFile($video , 'Videos' , $guestHouse);
+
+            }
+
+            DB::commit();
+
+            if($guestHouse->wasChanged())
+                return $this->sendSuccessResponse(['message' => 'guest house updated' , 'data' => $guestHouse]);
+            else 
+                return $this->sendSuccessResponse(['message' => 'nothing updated' , 'data' => $guestHouse]);
         } catch (\Throwable $th) {
-            //throw $th;
+            DB::rollBack();
+            return $this->sendServerError($th->getMessage());
         }
     }
 
@@ -97,6 +144,32 @@ class GuestHouseController extends Controller
      */
     public function destroy(GuestHouse $guestHouse)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $media = $guestHouse->getFirstMedia('Cover');
+
+            if($media)
+                $media->delete();
+
+
+            foreach ($guestHouse->getMedia('Pictures') as $key => $media) {
+                    
+                $media->delete();
+            }
+
+            foreach ($guestHouse->getMedia('Videos') as $key => $media) {
+                $media->delete();
+            }
+
+            $guestHouse->delete();
+
+            DB::commit();
+
+            return $this->sendSuccessResponse(['message' => 'guest house registered']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->sendServerError($th->getMessage());
+        }
+
     }
 }

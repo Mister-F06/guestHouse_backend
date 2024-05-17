@@ -38,9 +38,9 @@ class StoreRequest extends FormRequest
             'has_washing_machine' => 'required|boolean',
             'has_car'       => 'required|boolean',
             'has_parking'   => 'required|boolean',
-            'cover'         => 'required|file|mimes:png,jpg,jpeg,webp|max:2048',
+            'cover'         => 'required|file|mimes:png,jpg,jpeg,webp|max:5120',
             'pictures'      => 'array|min:3',
-            'pictures.*'    => 'file|mimes:png,jpg,jpeg,webp|max:2048',
+            'pictures.*'    => 'file|mimes:png,jpg,jpeg,webp|max:5120',
             'videos'        => 'array|min:1',
             'videos.*'      => 'file|mimes:mp4,avi|max:10240'
         ];
