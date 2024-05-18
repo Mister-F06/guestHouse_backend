@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\GuestHouse;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest
 {
@@ -22,11 +23,11 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'                  => 'sometimes|string|max:255|unique:guest_houses,name,' . $this->guest_house->id,
+            'name'                  => 'sometimes|string|max:255|'.Rule::unique('guest_houses' , 'name')->ignore($this->guestHouse , 'name'),
             'description'           => 'sometimes|string',
             'price'                 => 'sometimes|integer',
             'address'               => 'sometimes|string',
-            'map_link'              => 'nullable|string',
+            'map_link'              => 'nullable',
             'bedrooms_nbr'          => 'sometimes|integer',
             'beds_nbr'              => 'sometimes|integer',
             'toilets_nbr'           => 'sometimes|integer',
@@ -38,9 +39,9 @@ class UpdateRequest extends FormRequest
             'has_washing_machine'   => 'sometimes|boolean',
             'has_car'               => 'sometimes|boolean',
             'has_parking'           => 'sometimes|boolean',
-            'cover'                 => 'nullable|file|mimes:png,jpg,jpeg,webp|max:2048',
+            'cover'                 => 'nullable|file|mimes:png,jpg,jpeg,webp|max:5120',
             'pictures'              => 'nullable|array|min:3',
-            'pictures.*'            => 'nullable|file|mimes:png,jpg,jpeg,webp|max:2048',
+            'pictures.*'            => 'nullable|file|mimes:png,jpg,jpeg,webp|max:5120',
             'videos'                => 'nullable|array|min:1',
             'videos.*'              => 'nullable|file|mimes:mp4,avi|max:10240'
         ];

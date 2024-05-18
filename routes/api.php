@@ -41,8 +41,14 @@ Route::middleware('auth:sanctum')->group(function(){
         });
 
         Route::middleware('role:manager')->group(function() {
+            Route::get('' , 'indexManager');
+            Route::get('find/{guestHouse}' , 'show');
             Route::post('' , 'store');
             Route::post('update/{guestHouse}' , 'update');
+            Route::delete('delete/{guestHouse}' , 'destroy');
         });
     });
 });
+
+
+// visitor
