@@ -2,6 +2,8 @@
 
 use App\Http\Middleware\CheckUserAbility;
 use App\Http\Middleware\JsonMiddleware;
+use App\Jobs\RefreshGoogleDriveAuthToken;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -26,6 +28,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => CheckUserAbility::class
         ]);
+    })
+    ->withSchedule(function(Schedule $schedule){
+        $schedule->job(new RefreshGoogleDriveAuthToken)->daily();
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
