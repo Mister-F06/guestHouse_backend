@@ -269,16 +269,23 @@ class LoginController extends Controller
     public function changePassword(Request $request)
     {
         $data = $request->validate([
-            'email'     => 'email|required|exists:users,email',
+            'token'     => 'required|exists:password_reset_tokens,token',
             'password'  => 'required|string|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/'
         ]);
 
         try {
+
             DB::beginTransaction();
 
-            $user = User::where('email' , $data['email'])->first();
+            $password_reset = DB::table('password_reset_tokens')
+                    ->where('token', $data['token'])
+                    ->first();
+
+            $user = User::where('email' , $password_reset->email)->first();
 
             $user->update(['password' => bcrypt($data['password'])]);
+
+            $password_reset->delete();
 
             DB::commit();
 
@@ -360,9 +367,9 @@ class LoginController extends Controller
                    
               $email = $reset_password->email ;
               
-              DB::table('password_reset_tokens')
-                    ->where('token', $request->get('token'))
-                    ->delete();
+            //   DB::table('password_reset_tokens')
+            //         ->where('token', $request->get('token'))
+            //         ->delete();
     
                 DB::commit();
     
