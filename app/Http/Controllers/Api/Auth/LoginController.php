@@ -172,7 +172,7 @@ class LoginController extends Controller
 
             $token_data = generateSignedRoute($data['email'] , 'reset.password.verify');
 
-            $token_data['email_data']['url'] = updateSignedLink($token_data['email_data']['url'] , route('reset.password.verify') , 'reset/password');
+            $token_data['email_data']['url'] = updateSignedLink($token_data['email_data']['url'] , route('reset.password.verify') , 'changePassword');
 
             DB::table('password_reset_tokens')->insert([
                 'token' => $token_data['token'],
