@@ -47,6 +47,9 @@ Route::middleware('auth:sanctum')->group(function(){
             Route::post('update/{guestHouse}' , 'update');
             Route::delete('delete/{guestHouse}' , 'destroy');
         });
+
+        Route::get('search' , 'search')->withoutMiddleware(['auth:sanctum']);
+
     });
 });
 

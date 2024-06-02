@@ -59,7 +59,7 @@ return [
             'driver' => 'google',
             'clientId' => env('GOOGLE_DRIVE_CLIENT_ID' , "748244186948-p60eutopio8p35onjv0n5jpl44pe3c6e.apps.googleusercontent.com"),
             'clientSecret' => env('GOOGLE_DRIVE_CLIENT_SECRET' , "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"),
-            'refreshToken' => env('GOOGLE_DRIVE_REFRESH_TOKEN' , "1//04JFpev6W9D1cCgYIARAAGAQSNwF-L9IrgwnzHqxxCEgQeb9BnG7huEsnkYnybQCampkkc_NMZDojWEzPl3PejEEY7VPh13ETPJA"),
+            'refreshToken' => env('GOOGLE_DRIVE_REFRESH_TOKEN' , "1//04cFqKUlULsLXCgYIARAAGAQSNwF-L9Irnt6Bo9cs5dAvq8QDVUqtLdf0cXWml-yWIyX42FPc2nzDkE-qfbqE-Y4MoEbBj7BlVoA"),
             'folderId' => env('GOOGLE_DRIVE_FOLDER_ID' , "GuestHouseMedia"),
         ]
 

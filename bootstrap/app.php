@@ -30,7 +30,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withSchedule(function(Schedule $schedule){
-        $schedule->job(new RefreshGoogleDriveAuthToken)->daily();
+        $schedule->job(new RefreshGoogleDriveAuthToken)->everyMinute();
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

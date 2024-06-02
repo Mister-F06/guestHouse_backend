@@ -16,7 +16,7 @@ class GuestHouseController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */
+    */
     public function index()
     {
        try {
@@ -25,6 +25,19 @@ class GuestHouseController extends Controller
        } catch (\Throwable $th) {
             return $this->sendServerError($th->getMessage());
        }
+    }
+
+
+    public function search(Request $request)
+    {
+        $data = $request->all();
+
+        if(!$data)
+            abort(419 , 'empty search query');
+
+        $guest_houses = GuestHouse::where($data)
+                                    ->get();
+        return $guest_houses;
     }
 
     /**
