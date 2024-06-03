@@ -278,14 +278,16 @@ class LoginController extends Controller
             DB::beginTransaction();
 
             $password_reset = DB::table('password_reset_tokens')
-                    ->where('token', $data['token'])
-                    ->first();
+                                    ->where('token', $data['token'])
+                                    ->first();
 
             $user = User::where('email' , $password_reset->email)->first();
 
             $user->update(['password' => bcrypt($data['password'])]);
 
-            $password_reset->delete();
+            $password_reset = DB::table('password_reset_tokens')
+                                    ->where('token', $data['token'])
+                                    ->delete();
 
             DB::commit();
 

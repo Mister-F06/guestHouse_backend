@@ -18,7 +18,7 @@ Route::prefix('auth')->group(function() {
 
     Route::post('/reset-password' , [LoginController::class , 'resetPassword']);
 
-    Route::post('/reset-password/verify/signature' , [LoginController::class , 'verifySignature '])->name('reset.password.verify');
+    Route::post('/reset-password/verify/signature' , [LoginController::class , 'verifySignature'])->name('reset.password.verify');
 
     Route::post('/reset-password/resent/link' , [LoginController::class , 'resentPasswordLink']);
 
