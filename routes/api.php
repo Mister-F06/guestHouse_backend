@@ -34,10 +34,12 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::get('me' , 'me');
     });
 
-    Route::prefix('guest_house')->controller(GuestHouseController::class)->group(function() {
+    Route::prefix('guest_houses')->controller(GuestHouseController::class)->group(function() {
 
         Route::middleware('role:admin')->group(function(){
             Route::get('list' , 'index');
+            Route::put('{guestHouse}/update/status' , 'changeStatus');
+            Route::put('{guestHouse}/update/visibility' , 'changeVisibility');
         });
 
         Route::middleware('role:manager')->group(function() {

@@ -787,6 +787,1390 @@
                 }
             }
         },
+        "/guest_houses": {
+            "get": {
+                "tags": [
+                    "GuestHouse"
+                ],
+                "summary": "Get list of guest houses",
+                "description": "Returns a list of guest houses",
+                "operationId": "getGuestHouses",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Lovely Guest House"
+                                            },
+                                            "slug": {
+                                                "type": "string",
+                                                "example": "lovely-guest-house",
+                                                "nullable": true
+                                            },
+                                            "description": {
+                                                "type": "string",
+                                                "example": "A lovely guest house with beautiful views."
+                                            },
+                                            "price": {
+                                                "type": "integer",
+                                                "example": 100
+                                            },
+                                            "address": {
+                                                "type": "string",
+                                                "example": "123 Guest House Lane"
+                                            },
+                                            "map_link": {
+                                                "type": "string",
+                                                "example": "https://maps.example.com/guesthouse",
+                                                "nullable": true
+                                            },
+                                            "bedrooms_nbr": {
+                                                "type": "integer",
+                                                "example": 3
+                                            },
+                                            "beds_nbr": {
+                                                "type": "integer",
+                                                "example": 4
+                                            },
+                                            "toilets_nbr": {
+                                                "type": "integer",
+                                                "example": 2
+                                            },
+                                            "bathrooms_nbr": {
+                                                "type": "integer",
+                                                "example": 2
+                                            },
+                                            "has_kitchen": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "has_pool": {
+                                                "type": "boolean",
+                                                "example": false
+                                            },
+                                            "has_air_conditionner": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "has_jacuzzi": {
+                                                "type": "boolean",
+                                                "example": false
+                                            },
+                                            "has_washing_machine": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "has_car": {
+                                                "type": "boolean",
+                                                "example": false
+                                            },
+                                            "has_parking": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "status": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "pending_validation",
+                                                    "validated",
+                                                    "rejected"
+                                                ],
+                                                "example": "validated"
+                                            },
+                                            "is_enabled": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "user_id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-05-01T09:38:45.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-05-01T09:38:45.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "GuestHouse"
+                ],
+                "summary": "Store a newly created guest house in storage",
+                "description": "Create a new guest house and store it in the database",
+                "operationId": "storeGuestHouse",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "description",
+                                    "price",
+                                    "address",
+                                    "bedrooms_nbr",
+                                    "beds_nbr",
+                                    "toilets_nbr",
+                                    "bathrooms_nbr",
+                                    "has_kitchen",
+                                    "has_pool",
+                                    "has_air_conditionner",
+                                    "has_jacuzzi",
+                                    "has_washing_machine",
+                                    "has_car",
+                                    "has_parking",
+                                    "cover",
+                                    "pictures",
+                                    "videos"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Lovely Guest House"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "A lovely guest house with beautiful views."
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "example": 100
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "123 Guest House Lane"
+                                    },
+                                    "map_link": {
+                                        "type": "string",
+                                        "example": "https://maps.example.com/guesthouse",
+                                        "nullable": true
+                                    },
+                                    "bedrooms_nbr": {
+                                        "type": "integer",
+                                        "example": 3
+                                    },
+                                    "beds_nbr": {
+                                        "type": "integer",
+                                        "example": 4
+                                    },
+                                    "toilets_nbr": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "bathrooms_nbr": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "has_kitchen": {
+                                        "type": "boolean",
+                                        "example": true
+                                    },
+                                    "has_pool": {
+                                        "type": "boolean",
+                                        "example": false
+                                    },
+                                    "has_air_conditionner": {
+                                        "type": "boolean",
+                                        "example": true
+                                    },
+                                    "has_jacuzzi": {
+                                        "type": "boolean",
+                                        "example": false
+                                    },
+                                    "has_washing_machine": {
+                                        "type": "boolean",
+                                        "example": true
+                                    },
+                                    "has_car": {
+                                        "type": "boolean",
+                                        "example": false
+                                    },
+                                    "has_parking": {
+                                        "type": "boolean",
+                                        "example": true
+                                    },
+                                    "cover": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "pictures": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "videos": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Guest house created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "guest house created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/guest_houses/search": {
+            "get": {
+                "tags": [
+                    "GuestHouse"
+                ],
+                "summary": "Search for guest houses based on filters",
+                "description": "Returns a list of guest houses matching the specified filters",
+                "operationId": "searchGuestHouses",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of the guest house",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "description": "Price of the guest house",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "description": "Address of the guest house",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "bedrooms_nbr",
+                        "in": "query",
+                        "description": "Number of bedrooms",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "beds_nbr",
+                        "in": "query",
+                        "description": "Number of beds",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "toilets_nbr",
+                        "in": "query",
+                        "description": "Number of toilets",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "bathrooms_nbr",
+                        "in": "query",
+                        "description": "Number of bathrooms",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "has_kitchen",
+                        "in": "query",
+                        "description": "Whether the guest house has a kitchen",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "has_pool",
+                        "in": "query",
+                        "description": "Whether the guest house has a pool",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "has_air_conditionner",
+                        "in": "query",
+                        "description": "Whether the guest house has air conditioning",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "has_jacuzzi",
+                        "in": "query",
+                        "description": "Whether the guest house has a jacuzzi",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "has_washing_machine",
+                        "in": "query",
+                        "description": "Whether the guest house has a washing machine",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "has_car",
+                        "in": "query",
+                        "description": "Whether the guest house provides a car",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "has_parking",
+                        "in": "query",
+                        "description": "Whether the guest house has parking",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status of the guest house",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "pending_validation",
+                                "validated",
+                                "rejected"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Lovely Guest House"
+                                            },
+                                            "slug": {
+                                                "type": "string",
+                                                "example": "lovely-guest-house",
+                                                "nullable": true
+                                            },
+                                            "description": {
+                                                "type": "string",
+                                                "example": "A lovely guest house with beautiful views."
+                                            },
+                                            "price": {
+                                                "type": "integer",
+                                                "example": 100
+                                            },
+                                            "address": {
+                                                "type": "string",
+                                                "example": "123 Guest House Lane"
+                                            },
+                                            "map_link": {
+                                                "type": "string",
+                                                "example": "https://maps.example.com/guesthouse",
+                                                "nullable": true
+                                            },
+                                            "bedrooms_nbr": {
+                                                "type": "integer",
+                                                "example": 3
+                                            },
+                                            "beds_nbr": {
+                                                "type": "integer",
+                                                "example": 4
+                                            },
+                                            "toilets_nbr": {
+                                                "type": "integer",
+                                                "example": 2
+                                            },
+                                            "bathrooms_nbr": {
+                                                "type": "integer",
+                                                "example": 2
+                                            },
+                                            "has_kitchen": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "has_pool": {
+                                                "type": "boolean",
+                                                "example": false
+                                            },
+                                            "has_air_conditionner": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "has_jacuzzi": {
+                                                "type": "boolean",
+                                                "example": false
+                                            },
+                                            "has_washing_machine": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "has_car": {
+                                                "type": "boolean",
+                                                "example": false
+                                            },
+                                            "has_parking": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "status": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "pending_validation",
+                                                    "validated",
+                                                    "rejected"
+                                                ],
+                                                "example": "validated"
+                                            },
+                                            "is_enabled": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "user_id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-05-01T09:38:45.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-05-01T09:38:45.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "419": {
+                        "description": "Empty search query"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/guest_houses/manager": {
+            "get": {
+                "tags": [
+                    "GuestHouse"
+                ],
+                "summary": "Get a listing of guest houses for the authenticated user",
+                "description": "Returns a list of guest houses that belong to the authenticated user",
+                "operationId": "getManagerGuestHouses",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Lovely Guest House"
+                                            },
+                                            "slug": {
+                                                "type": "string",
+                                                "example": "lovely-guest-house",
+                                                "nullable": true
+                                            },
+                                            "description": {
+                                                "type": "string",
+                                                "example": "A lovely guest house with beautiful views."
+                                            },
+                                            "price": {
+                                                "type": "integer",
+                                                "example": 100
+                                            },
+                                            "address": {
+                                                "type": "string",
+                                                "example": "123 Guest House Lane"
+                                            },
+                                            "map_link": {
+                                                "type": "string",
+                                                "example": "https://maps.example.com/guesthouse",
+                                                "nullable": true
+                                            },
+                                            "bedrooms_nbr": {
+                                                "type": "integer",
+                                                "example": 3
+                                            },
+                                            "beds_nbr": {
+                                                "type": "integer",
+                                                "example": 4
+                                            },
+                                            "toilets_nbr": {
+                                                "type": "integer",
+                                                "example": 2
+                                            },
+                                            "bathrooms_nbr": {
+                                                "type": "integer",
+                                                "example": 2
+                                            },
+                                            "has_kitchen": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "has_pool": {
+                                                "type": "boolean",
+                                                "example": false
+                                            },
+                                            "has_air_conditionner": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "has_jacuzzi": {
+                                                "type": "boolean",
+                                                "example": false
+                                            },
+                                            "has_washing_machine": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "has_car": {
+                                                "type": "boolean",
+                                                "example": false
+                                            },
+                                            "has_parking": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "status": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "pending_validation",
+                                                    "validated",
+                                                    "rejected"
+                                                ],
+                                                "example": "validated"
+                                            },
+                                            "is_enabled": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "user_id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-05-01T09:38:45.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2024-05-01T09:38:45.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/guest_houses/{id}": {
+            "get": {
+                "tags": [
+                    "GuestHouse"
+                ],
+                "summary": "Display the specified guest house",
+                "description": "Returns a guest house by ID",
+                "operationId": "getGuestHouseById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the guest house to display",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Lovely Guest House"
+                                        },
+                                        "slug": {
+                                            "type": "string",
+                                            "example": "lovely-guest-house"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "example": "A lovely guest house with beautiful views."
+                                        },
+                                        "price": {
+                                            "type": "integer",
+                                            "example": 100
+                                        },
+                                        "address": {
+                                            "type": "string",
+                                            "example": "123 Guest House Lane"
+                                        },
+                                        "map_link": {
+                                            "type": "string",
+                                            "example": "https://maps.example.com/guesthouse",
+                                            "nullable": true
+                                        },
+                                        "bedrooms_nbr": {
+                                            "type": "integer",
+                                            "example": 3
+                                        },
+                                        "beds_nbr": {
+                                            "type": "integer",
+                                            "example": 4
+                                        },
+                                        "toilets_nbr": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "bathrooms_nbr": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "has_kitchen": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "has_pool": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "has_air_conditionner": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "has_jacuzzi": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "has_washing_machine": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "has_car": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "has_parking": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "pending_validation"
+                                        },
+                                        "is_enabled": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "user_id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-05-01T09:38:45.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-05-01T09:38:45.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Guest house not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Guest house not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/guest-houses/{id}": {
+            "put": {
+                "tags": [
+                    "GuestHouse"
+                ],
+                "summary": "Update the specified guest house",
+                "description": "Updates a guest house's details",
+                "operationId": "updateGuestHouse",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the guest house to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Lovely Guest House"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "A lovely guest house with beautiful views."
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "example": 100
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "123 Guest House Lane"
+                                    },
+                                    "map_link": {
+                                        "type": "string",
+                                        "example": "https://maps.example.com/guesthouse",
+                                        "nullable": true
+                                    },
+                                    "bedrooms_nbr": {
+                                        "type": "integer",
+                                        "example": 3
+                                    },
+                                    "beds_nbr": {
+                                        "type": "integer",
+                                        "example": 4
+                                    },
+                                    "toilets_nbr": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "bathrooms_nbr": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "has_kitchen": {
+                                        "type": "boolean",
+                                        "example": true
+                                    },
+                                    "has_pool": {
+                                        "type": "boolean",
+                                        "example": false
+                                    },
+                                    "has_air_conditionner": {
+                                        "type": "boolean",
+                                        "example": true
+                                    },
+                                    "has_jacuzzi": {
+                                        "type": "boolean",
+                                        "example": false
+                                    },
+                                    "has_washing_machine": {
+                                        "type": "boolean",
+                                        "example": true
+                                    },
+                                    "has_car": {
+                                        "type": "boolean",
+                                        "example": false
+                                    },
+                                    "has_parking": {
+                                        "type": "boolean",
+                                        "example": true
+                                    },
+                                    "cover": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "pictures": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "videos": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "guest house updated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Guest house not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Guest house not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "GuestHouse"
+                ],
+                "summary": "Remove the specified guest house",
+                "description": "Delete a guest house along with its associated media files (cover, pictures, and videos) from storage",
+                "operationId": "deleteGuestHouse",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the guest house to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Guest house deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "guest house deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Guest house not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Guest house not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/guest-houses/{id}/status": {
+            "patch": {
+                "tags": [
+                    "GuestHouse"
+                ],
+                "summary": "Update status for the specified guest house",
+                "description": "Change the status of a guest house to either 'rejected' or 'validated'",
+                "operationId": "changeGuestHouseStatus",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the guest house to update the status",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "rejected",
+                                            "validated"
+                                        ],
+                                        "example": "validated"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Status changed successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "status changed"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Guest house not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Guest house not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/guest-houses/{id}/visibility": {
+            "patch": {
+                "tags": [
+                    "GuestHouse"
+                ],
+                "summary": "Update visibility for the specified guest house",
+                "description": "Change the visibility status of a guest house to either true or false",
+                "operationId": "changeGuestHouseVisibility",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the guest house to update the visibility",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "visibility": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Visibility changed successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "visibility changed"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Guest house not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Guest house not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/me": {
             "get": {
                 "tags": [

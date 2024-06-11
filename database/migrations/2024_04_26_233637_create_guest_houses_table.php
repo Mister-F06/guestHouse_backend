@@ -30,6 +30,8 @@ return new class extends Migration
             $table->boolean('has_washing_machine')->default(false);
             $table->boolean('has_car')->default(false);
             $table->boolean('has_parking')->default(false);
+            $table->enum('status' , ['pending_validation' , 'validated' , 'rejected'])->default('pending_validation');
+            $table->boolean('is_enabled')->default(false);
             $table->foreignId('user_id')
                   ->constrained('users')
                   ->onUpdate('cascade')
