@@ -10,7 +10,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Api\GuestHouse\StoreRequest;
 use App\Http\Requests\Api\GuestHouse\UpdateRequest;
+use App\Mail\AdminNotifyGuestHouseCreated;
+use App\Mail\HouseStatusNotify;
 use App\Managers\StoreFile;
+use App\Models\GuestHouseRejected;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 
 class GuestHouseController extends Controller
@@ -357,7 +362,7 @@ class GuestHouseController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
-
+        
         try {
 
             DB::beginTransaction();
@@ -374,7 +379,10 @@ class GuestHouseController extends Controller
             foreach ($data['videos'] as $key => $video) 
                 StoreFile::addFile($video , 'Videos' , $guestHouse);
 
+            Mail::to(config('mail.from.address'))->send(new AdminNotifyGuestHouseCreated());
+
             DB::commit();
+
             return $this->sendSuccessResponse(['message' => 'guest house created']);
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -637,14 +645,45 @@ class GuestHouseController extends Controller
     */
     public function changeStatus(Request $request , GuestHouse $guestHouse)
     {
+        try {
 
-        $data = $request->validate([
-            'status'    => 'required|string|'.Rule::in(['rejected' , 'validated'])
-        ]);
+            DB::beginTransaction();
 
-        $guestHouse->update(['status' => $data['status']]);
+            $data = $request->validate([
+                'status'    => 'required|string|'.Rule::in(['rejected' , 'validated']),
+                'reasons'   => 'required_if:status,rejected|string'
+            ]);
+    
+            $guestHouse->update(['status' => $data['status']]);
 
-        return $this->sendSuccessResponse('status changed');
+
+            if($guestHouse->status === 'validated')
+                $guestHouse->guestHouseRejecteds()->delete();
+            else 
+                GuestHouseRejected::create([
+                    'reasons'   => $data['reasons'],
+                    'date'      => Carbon::now(),
+                    'guest_house_id' => $guestHouse->id  
+                ]);
+
+            $email_data = [
+                'fullname'  => $guestHouse->user->firstname. ' '. $guestHouse->user->lastname,
+                'status'    => $guestHouse->status,
+                'house_name'=> $guestHouse->name,
+                'reasons'   => $guestHouse->status == 'rejected' ? $data['reasons'] : null
+            ];
+
+            Mail::to($guestHouse->user->email)->send(new HouseStatusNotify($email_data) , $email_data);
+
+            DB::commit();
+    
+            return $this->sendSuccessResponse('status changed');
+    
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $this->sendServerError($th->getMessage());
+        }
+
     }
 
 

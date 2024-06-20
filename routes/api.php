@@ -39,7 +39,6 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::middleware('role:admin')->group(function(){
             Route::get('list' , 'index');
             Route::put('{guestHouse}/update/status' , 'changeStatus');
-            Route::put('{guestHouse}/update/visibility' , 'changeVisibility');
         });
 
         Route::middleware('role:manager')->group(function() {
@@ -48,6 +47,7 @@ Route::middleware('auth:sanctum')->group(function(){
             Route::post('' , 'store');
             Route::post('update/{guestHouse}' , 'update');
             Route::delete('delete/{guestHouse}' , 'destroy');
+            Route::put('{guestHouse}/update/visibility' , 'changeVisibility');
         });
 
         Route::get('search' , 'search')->withoutMiddleware(['auth:sanctum']);

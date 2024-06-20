@@ -14,7 +14,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class GuestHouse extends Model implements HasMedia
 {
-    use HasFactory , InteractsWithMedia;
+    use HasFactory , InteractsWithMedia /*, SoftDeletes*/;
 
     /**
      * The attributes that are mass assignable.
@@ -73,6 +73,12 @@ class GuestHouse extends Model implements HasMedia
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+
+    public function guestHouseRejecteds()
+    {
+        return $this->hasMany(GuestHouseRejected::class);
     }
 
     
