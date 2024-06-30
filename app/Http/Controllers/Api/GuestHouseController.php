@@ -536,10 +536,10 @@ class GuestHouseController extends Controller
         
         try {
             
-            DB::beginTransaction();
+            // DB::beginTransaction();
 
             $guestHouse->update($data);
-
+            
             if ($request->hasFile('cover')) {
 
                 $media = $guestHouse->getFirstMedia('Cover');
@@ -550,36 +550,22 @@ class GuestHouseController extends Controller
                 StoreFile::addFile($data['cover'], 'Cover' , $guestHouse);
             }
 
-            if($request->hasFile('pictures')){
-
-                foreach ($guestHouse->getMedia('Pictures') as $key => $media) {
-                    
-                    $media->delete();
-                }
-
+            if($request->hasFile('pictures'))
                 foreach ($data['pictures'] as $key => $media) 
                     StoreFile::addFile($media , 'Pictures' , $guestHouse);
-                
-            }
 
-            if ($request->hasFile('videos')) {
-                foreach ($guestHouse->getMedia('Videos') as $key => $media) {
-                    $media->delete();
-                }
-
+            if ($request->hasFile('videos')) 
                 foreach ($data['videos'] as $key => $video) 
                    StoreFile::addFile($video , 'Videos' , $guestHouse);
 
-            }
-
-            DB::commit();
+            // DB::commit();
 
             if($guestHouse->wasChanged())
-                return $this->sendSuccessResponse(['message' => 'guest house updated' , 'data' => $guestHouse]);
+                return $this->sendSuccessResponse(['message' => 'guest house updated']);
             else 
-                return $this->sendSuccessResponse(['message' => 'nothing updated' , 'data' => $guestHouse]);
+                return $this->sendSuccessResponse(['message' => 'nothing updated']);
         } catch (\Throwable $th) {
-            DB::rollBack();
+            // DB::rollBack();
             return $this->sendServerError($th->getMessage());
         }
     }
